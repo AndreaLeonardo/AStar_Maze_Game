@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -static")
 set(CMAKE_CXX_STANDARD 14)
 
 
-set(SOURCE_FILES main.cpp fsa.h stlastar.h findpath.h PLAYER.h)
+set(SOURCE_FILES main.cpp fsa.h stlastar.h findpath.h PLAYER.h MAP.h)
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
     add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES})

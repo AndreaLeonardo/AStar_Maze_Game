@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include "findpath.h"
 #include "PLAYER.h"
+#include "MAP.h"
 
 
 int main() {
@@ -13,7 +14,7 @@ int main() {
     MapSearchNode StartNode(0, 0);
     MapSearchNode GoalNode(-1, -1);
 
-    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "D:/sprite/pinguino.png", 0.01f);
+    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../sprite/pinguino.png", 0.01f);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -62,6 +63,7 @@ int main() {
         }
 
         window.clear();
+        drawMap(window, GoalNode);
         player.draw(window);
         window.display();
 
