@@ -32,6 +32,35 @@ int main() {
             }
         }
 
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+            player.move(sf::Vector2f(player.getX(),player.getY()-1));
+            player.setY(player.getY()-1);
+            if(player.getY()<0){
+                player.setY(0);
+            }
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+            player.move(sf::Vector2f(player.getX()-1,player.getY()));
+            player.setX(player.getX()-1);
+            if(player.getX()<0){
+                player.setX(0);
+            }
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+            player.move(sf::Vector2f(player.getX()+1,player.getY()));
+            player.setX(player.getX()+1);
+            if(player.getX()>640){
+                player.setX(640);
+            }
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+            player.move(sf::Vector2f(player.getX(),player.getY()+1));
+            player.setY(player.getY()+1);
+            if(player.getY()>640){
+                player.setY(640);
+            }
+        }
+
         window.clear();
         player.draw(window);
         window.display();
