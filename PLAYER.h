@@ -60,6 +60,58 @@ public:
         c = 3;
     }
 
+    void Update(float DeltaTime, MapSearchNode GN){
+
+        totalTime += DeltaTime;
+
+        if(totalTime > moveTime && this->count < directions.size()){
+            totalTime-= moveTime;
+            if (ic > 2){
+                ic = 0;
+            }
+
+            if(body.getPosition().x == (16+32*GN.x) && body.getPosition().y == (16+32*GN.y) && !NewPath){
+                body.setTextureRect(sf::IntRect(textureSizeP.x * ic, textureSizeP.y * 0, textureSizeP.x, textureSizeP.y));
+                ic++;
+
+            }
+
+            if(body.getPosition().x == (16+32*directions[count]->x) && body.getPosition().y == (16+32*directions[count]->y) && this->count < directions.size()-1){
+                count++;
+                c = 3;
+
+            }
+
+            if(body.getPosition().x != (16+ 32*directions[count]->x) && body.getPosition().y == (16+32*directions[count]->y)) {
+
+                if(body.getPosition().x > (16+ 32*directions[count]->x)) {
+                    move(sf::Vector2f((16 + 32 * directions[count]->x) + 8 * c, (16 + 32 * directions[count]->y)));
+                    body.setTextureRect(sf::IntRect(textureSizeP.x * ic, textureSizeP.y * 11, textureSizeP.x,
+                                                    textureSizeP.y));
+                }
+                else {
+                    move(sf::Vector2f((16 + 32 * directions[count]->x) - 8 * c, (16 + 32 * directions[count]->y)));
+                    body.setTextureRect(sf::IntRect(textureSizeP.x * ic, textureSizeP.y * 2, textureSizeP.x,
+                                                    textureSizeP.y));
+                }
+                ic++;
+                c--;
+
+            }
+            else if (body.getPosition().x == (16+ 32*directions[count]->x) && body.getPosition().y != (16+32*directions[count]->y)){
+                if(body.getPosition().y > (16+32*directions[count]->y))
+                    move(sf::Vector2f((16 + 32 * directions[count]->x), (16 + 32 * directions[count]->y) + 8 * c));
+                else
+                    move(sf::Vector2f((16 + 32 * directions[count]->x), (16 + 32 * directions[count]->y) - 8 * c));
+                body.setTextureRect(sf::IntRect(textureSizeP.x*ic, textureSizeP.y*2, textureSizeP.x, textureSizeP.y));
+                ic++;
+                c--;
+            }
+
+        }
+
+    }
+
 public:
     std::vector<MapSearchNode*> directions;
     sf::RectangleShape body;

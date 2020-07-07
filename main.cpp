@@ -5,6 +5,7 @@
 #include "findpath.h"
 #include "PLAYER.h"
 #include "MAP.h"
+#include "ALGORITHM.h"
 
 
 int main() {
@@ -12,9 +13,14 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(640, 640), "ASTAR ALGORITHM");
 
     MapSearchNode StartNode(0, 0);
-    MapSearchNode GoalNode(-1, -1);
+    MapSearchNode GoalNode(10, 10);
 
     Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../sprite/pinguino.png", 0.01f);
+
+    AStarSearch<MapSearchNode> astarsearch;
+    const unsigned int NumSearches = 1;
+    unsigned int ss;
+    findpathalg(&player, StartNode, GoalNode, &ss, &astarsearch, &NumSearches);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -33,35 +39,8 @@ int main() {
             }
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-            player.move(sf::Vector2f(player.getX(),player.getY()-1));
-            player.setY(player.getY()-1);
-            if(player.getY()<0){
-                player.setY(0);
-            }
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-            player.move(sf::Vector2f(player.getX()-1,player.getY()));
-            player.setX(player.getX()-1);
-            if(player.getX()<0){
-                player.setX(0);
-            }
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-            player.move(sf::Vector2f(player.getX()+1,player.getY()));
-            player.setX(player.getX()+1);
-            if(player.getX()>640){
-                player.setX(640);
-            }
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
-            player.move(sf::Vector2f(player.getX(),player.getY()+1));
-            player.setY(player.getY()+1);
-            if(player.getY()>640){
-                player.setY(640);
-            }
-        }
 
+        player.Update(deltaTime, GoalNode);
         window.clear();
         drawMap(window, GoalNode);
         player.draw(window);
