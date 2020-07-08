@@ -54,7 +54,7 @@ public:
         Player::y = y;
     }
 
-    bool newPath(){
+    void newPath(){
         if (NewPath)
             count = 0;
         c = 3;
