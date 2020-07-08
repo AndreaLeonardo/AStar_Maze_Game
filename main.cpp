@@ -20,7 +20,6 @@ int main() {
     AStarSearch<MapSearchNode> astarsearch;
     const unsigned int NumSearches = 1;
     unsigned int ss;
-    findpathalg(&player, StartNode, GoalNode, &ss, &astarsearch, &NumSearches);
 
     float deltaTime = 0.0f;
     sf::Clock clock;
@@ -37,6 +36,27 @@ int main() {
                     window.close();
                     break;
             }
+        }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            sf::Vector2i posMouse = sf::Mouse::getPosition(window);
+
+            player.NewPath = true;
+            player.newPath();
+
+            StartNode.setY((player.body.getPosition().y - 16) / 32);
+            StartNode.setX((player.body.getPosition().x - 16) / 32);
+            if ((posMouse.x - 16) % 32 > 15)
+                GoalNode.setX(((posMouse.x + (32 - (posMouse.x - 16) % 32)) - 16) / 32);
+            else
+                GoalNode.setX(((posMouse.x + (posMouse.x - 16) % 32) - 16) / 32);
+            if ((posMouse.y - 16) % 32 > 15)
+                GoalNode.setY(((posMouse.y + (32 - (posMouse.y - 16) % 32)) - 16) / 32);
+            else
+                GoalNode.setY(((posMouse.y + (posMouse.y - 16) % 32) - 16) / 32);
+
+            player.directions.clear();
+            findpathalg(&player, StartNode, GoalNode, &ss, &astarsearch, &NumSearches);
         }
 
 
