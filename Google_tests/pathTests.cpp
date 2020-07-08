@@ -20,7 +20,7 @@ TEST(TestPercorso, ControlloPercorsoValido){
     MapSearchNode GoalNode(10, 10);
     AStarSearch<MapSearchNode> astarsearch;
     const unsigned int NumSearches = 1;
-    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "D:/sprite/pinguino.png", 0.01f);
+    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../../sprite/pinguino.png", 0.01f);
     unsigned int SearchState;
 
     findpathalg(&player, StartNode, GoalNode, &SearchState, &astarsearch, &NumSearches);
@@ -32,13 +32,48 @@ TEST(TestPercorso, ControlloPercorsoNonValido){
     MapSearchNode GoalNode(6, 11);
     AStarSearch<MapSearchNode> astarsearch;
     const unsigned int NumSearches = 1;
-    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "D:/sprite/pinguino.png", 0.01f);
+    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../../sprite/pinguino.png", 0.01f);
     unsigned int SearchState;
 
     findpathalg(&player, StartNode, GoalNode, &SearchState, &astarsearch, &NumSearches);
     EXPECT_EQ(SearchState, AStarSearch<MapSearchNode>::SEARCH_STATE_FAILED);
 }
 
+TEST(TestPercorso, ControlloEfficienza1){
+    MapSearchNode StartNode(0, 19);
+    MapSearchNode GoalNode(12, 5);
+    AStarSearch<MapSearchNode> astarsearch;
+    const unsigned int NumSearches = 1;
+    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../../sprite/pinguino.png", 0.01f);
+    unsigned int SearchState;
+
+    findpathalg(&player, StartNode, GoalNode, &SearchState, &astarsearch, &NumSearches);
+    bool founderr = false;
+    for(int i = 0; i< player.directions.size(); i++){
+        if(player.directions[i]->x == 10 & player.directions[i]->y == 10)
+            founderr = true;
+    }
+
+    EXPECT_EQ(founderr, false);
+}
+
+TEST(TestPercorso, ControlloEfficienza2){
+    MapSearchNode StartNode(0, 19);
+    MapSearchNode GoalNode(11, 5);
+    AStarSearch<MapSearchNode> astarsearch;
+    const unsigned int NumSearches = 1;
+    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../../sprite/pinguino.png", 0.01f);
+    unsigned int SearchState;
+
+    findpathalg(&player, StartNode, GoalNode, &SearchState, &astarsearch, &NumSearches);
+    bool founderr = false;
+    for(int i = 0; i< player.directions.size(); i++){
+        if(player.directions[i]->x == 10 & player.directions[i]->y == 10)
+            founderr = true;
+    }
+
+    EXPECT_EQ(founderr, true);
+}
 
 
 

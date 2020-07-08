@@ -13,7 +13,7 @@ int main() {
     sf::RenderWindow window(sf::VideoMode(640, 640), "ASTAR ALGORITHM");
 
     MapSearchNode StartNode(0, 0);
-    MapSearchNode GoalNode(10, 10);
+    MapSearchNode GoalNode(-1, -1);
 
     Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../sprite/pinguino.png", 0.01f);
 
