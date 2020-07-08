@@ -13,17 +13,17 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -static")
 set(CMAKE_CXX_STANDARD 14)
 
 
-set(SOURCE_FILES pathTests.cpp)
+set(SOURCE_FILES Google_Test_run.cpp pathTests.cpp)
 
-#add_executable(Google_Tests_run pathTests.cpp)
+add_executable(Google_Tests_run pathTests.cpp Google_Test_run.cpp)
 
-#if(CMAKE_BUILD_TYPE STREQUAL "Release")
-#    add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} )
-#else()
-#    add_executable(${PROJECT_NAME} ${SOURCE_FILES} )
-#endif()
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    add_executable(${PROJECT_NAME} WIN32 ${SOURCE_FILES} )
+else()
+    add_executable(${PROJECT_NAME} ${SOURCE_FILES} )
+endif()
 
-set(SFML_ROOT ../../Libraries/SFML)
+set(SFML_ROOT D:/Libraries/SFML)
 set(SFML_STATIC_LIBRARIES TRUE)
 
 set(CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake_modules")
