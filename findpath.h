@@ -1,6 +1,3 @@
-//
-// Created by Andrea on 12/03/2019.
-//
 
 #ifndef LAB_PROJECT_FINDPATH_H
 #define LAB_PROJECT_FINDPATH_H

@@ -1,5 +1,5 @@
 //
-// Created by Andrea on 19/03/2020.
+// Created by Andrea on 08/07/2020.
 //
 
 #include "gtest/gtest.h"
@@ -73,6 +73,62 @@ TEST(TestPercorso, ControlloEfficienza2){
     }
 
     EXPECT_EQ(founderr, true);
+}
+
+TEST(TestPercorso, BoomerangTest){
+
+    srand((unsigned)time(0));
+    MapSearchNode StartNode(0, 0);
+    MapSearchNode GoalNode(rand()%20, rand()%20);
+    if (world_map[GoalNode.y * MAP_HEIGHT + GoalNode.x] == 9){
+        GoalNode.x = 19;
+        GoalNode.y = 19;
+    }
+    AStarSearch<MapSearchNode> astarsearch;
+    const unsigned int NumSearches = 1;
+    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../../sprite/pinguino.png", 0.01f);
+    unsigned int SearchState;
+
+    findpathalg(&player, StartNode, GoalNode, &SearchState, &astarsearch, &NumSearches);
+    std::vector<MapSearchNode*> path1(player.directions);
+    player.directions.clear();
+    findpathalg(&player, GoalNode, StartNode, &SearchState, &astarsearch, &NumSearches);
+    std::vector<MapSearchNode*> path2(player.directions);
+
+    EXPECT_EQ(path1.size(), path2.size());
+}
+
+TEST(TestPercorso, HardBoomerangTest){
+
+    srand((unsigned)time(0));
+    MapSearchNode StartNode(0, 0);
+    MapSearchNode GoalNode(rand()%20, rand()%20);
+    if (world_map[GoalNode.y * MAP_HEIGHT + GoalNode.x] == 9){
+        GoalNode.x = 19;
+        GoalNode.y = 19;
+    }
+    AStarSearch<MapSearchNode> astarsearch;
+    const unsigned int NumSearches = 1;
+    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../../sprite/pinguino.png", 0.01f);
+    unsigned int SearchState;
+    int sum1 = 0;
+    int sum2 = 0;
+
+    findpathalg(&player, StartNode, GoalNode, &SearchState, &astarsearch, &NumSearches);
+    std::vector<MapSearchNode*> path1(player.directions);
+    for(int i=0; i<path1.size(); i++){
+        sum1 += world_map[path1[i]->y * MAP_HEIGHT + path1[i]->x];
+    }
+    player.directions.clear();
+    findpathalg(&player, GoalNode, StartNode, &SearchState, &astarsearch, &NumSearches);
+    std::vector<MapSearchNode*> path2(player.directions);
+    for(int i=0; i<path2.size(); i++){
+        sum2 += world_map[path2[i]->y * MAP_HEIGHT + path2[i]->x];
+    }
+
+    cout << "sum1: " << sum1 << " sum2: " << sum2 << endl;
+
+    EXPECT_EQ(sum1, sum2);
 }
 
 
