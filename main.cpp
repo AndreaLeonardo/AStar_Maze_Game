@@ -15,7 +15,7 @@ int main() {
     MapSearchNode StartNode(0, 0);
     MapSearchNode GoalNode(-1, -1);
 
-    Player player(16 + 32 * StartNode.x, 16 + 32 * StartNode.y, sf::Vector2u(3, 18), "../sprite/pinguino.png", 0.01f);
+    Player player(cellCenter + cellSize * StartNode.x, cellCenter + cellSize * StartNode.y, sf::Vector2u(3, 18), "../sprite/pinguino.png", 0.01f);
 
     AStarSearch<MapSearchNode> astarsearch;
     const unsigned int NumSearches = 1;
@@ -44,16 +44,16 @@ int main() {
             player.NewPath = true;
             player.newPath();
 
-            StartNode.setY((player.body.getPosition().y - 16) / 32);
-            StartNode.setX((player.body.getPosition().x - 16) / 32);
-            if ((posMouse.x - 16) % 32 > 15)
-                GoalNode.setX(((posMouse.x + (32 - (posMouse.x - 16) % 32)) - 16) / 32);
+            StartNode.setY((player.body.getPosition().y - cellCenter) / cellSize);
+            StartNode.setX((player.body.getPosition().x - cellCenter) / cellSize);
+            if ((posMouse.x - cellCenter) % cellSize > (cellCenter-1))
+                GoalNode.setX(((posMouse.x + (cellSize - (posMouse.x - cellCenter) % cellSize)) - cellCenter) / cellSize);
             else
-                GoalNode.setX(((posMouse.x + (posMouse.x - 16) % 32) - 16) / 32);
-            if ((posMouse.y - 16) % 32 > 15)
-                GoalNode.setY(((posMouse.y + (32 - (posMouse.y - 16) % 32)) - 16) / 32);
+                GoalNode.setX(((posMouse.x + (posMouse.x - cellCenter) % cellSize) - cellCenter) / cellSize);
+            if ((posMouse.y - cellCenter) % cellSize > (cellCenter-1))
+                GoalNode.setY(((posMouse.y + (cellSize - (posMouse.y - cellCenter) % cellSize)) - cellCenter) / cellSize);
             else
-                GoalNode.setY(((posMouse.y + (posMouse.y - 16) % 32) - 16) / 32);
+                GoalNode.setY(((posMouse.y + (posMouse.y - cellCenter) % cellSize) - cellCenter) / cellSize);
 
             player.directions.clear();
             findpathalg(&player, StartNode, GoalNode, &ss, &astarsearch, &NumSearches);

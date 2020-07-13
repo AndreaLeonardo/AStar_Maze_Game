@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.7)
-set(PROJECT_NAME LAB_PROJECT)
+set(PROJECT_NAME LABORATORIO_PROGRAMMAZIONE)
 
 add_subdirectory(Google_tests)
 
