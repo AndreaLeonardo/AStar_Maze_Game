@@ -10,7 +10,7 @@
 #include "PLAYER.h"
 
 
-void findpathalg(Player* player, MapSearchNode StartNode, MapSearchNode GoalNode, unsigned int* ss,
+void findPathAlg(Player* player, MapSearchNode StartNode, MapSearchNode GoalNode, unsigned int* ss,
                  AStarSearch<MapSearchNode>* astarsearch, const unsigned int* NumSearches){
 
 

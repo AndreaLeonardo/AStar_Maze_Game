@@ -4,7 +4,6 @@
 #include <SFML/System.hpp>
 #include "findpath.h"
 #include "PLAYER.h"
-#include "MAP.h"
 #include "ALGORITHM.h"
 
 
@@ -56,7 +55,7 @@ int main() {
                 GoalNode.setY(((posMouse.y + (posMouse.y - cellCenter) % cellSize) - cellCenter) / cellSize);
 
             player.directions.clear();
-            findpathalg(&player, StartNode, GoalNode, &ss, &astarsearch, &NumSearches);
+            findPathAlg(&player, StartNode, GoalNode, &ss, &astarsearch, &NumSearches);
         }
 
 

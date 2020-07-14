@@ -9,7 +9,7 @@
 #include "C:\Users\Andrea\CLionProjects\LAB_PROJECT\PLAYER.h"
 #include "C:\Users\Andrea\CLionProjects\LAB_PROJECT\ALGORITHM.h"
 
-const int cellSize = cellSize;
+const int cellSize = 32;
 const int cellCenter = cellSize/2;
 
 
