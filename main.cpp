@@ -9,12 +9,15 @@
 
 int main() {
 
+
+
     sf::RenderWindow window(sf::VideoMode(640, 640), "ASTAR ALGORITHM");
 
     MapSearchNode StartNode(0, 0);
     MapSearchNode GoalNode(-1, -1);
+    BlockFactory BF;
 
-    Player player(cellCenter + cellSize * StartNode.x, cellCenter + cellSize * StartNode.y, sf::Vector2u(3, 18), "../sprite/pinguino.png", 0.01f);
+    Player player(cellCenter + cellSize * StartNode.x, cellCenter + cellSize * StartNode.y, sf::Vector2u(3, 18), "../sprite/pinguino.png", 0.08f);
 
     AStarSearch<MapSearchNode> astarsearch;
     const unsigned int NumSearches = 1;
@@ -61,7 +64,7 @@ int main() {
 
         player.Update(deltaTime, GoalNode);
         window.clear();
-        drawMap(window, GoalNode);
+        drawMap(window, GoalNode, BF);
         player.draw(window);
         window.display();
 
